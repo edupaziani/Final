@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Beat2</string>
+    <string name="logout">Logout</string>
+    <string name="hello">Hello</string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="dr_mim_ankhtir">Dr. Mim Ankhtir</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="report">Report</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textao">  Este aplicativo foi desenvolvido com o propósito de ajudar o máximo de pessoas possível, focando na acessibilidade e inclusão tecnológica.\n\n  Com uma abordagem voltada para o bem-estar, buscamos oferecer uma ferramenta que melhore a qualidade de vida dos nossos usuários, contemplando aspectos físicos, fisiológicos e mentais.\n\n  A interface intuitiva permite que pessoas de diferentes idades e níveis de familiaridade com tecnologia naveguem facilmente e utilizem os recursos oferecidos.\n\n  Estamos constantemente ouvindo e incorporando o feedback dos usuários para aprimorar a experiência e atender melhor às suas necessidades.\n\n  Ao unir vários fatores que contribuem para uma vida saudável e equilibrada, o aplicativo promove uma rotina funcional e acessível, apoiando nossos usuários na busca por mais qualidade de vida em todas as áreas importantes do dia a dia.</string>
+    <string name="contato">Para sugestões de melhorias ou problemas técnicos, por favor entre em contato conosco através do seguinte e-mail: <i><u>e199790@dac.unicamp.br</u></i></string>
+    <string name="select_blood_type" />
+    <string name="select_blood_sign" />
+    <string name="select_weight">select_weight</string>
+    <string name="terms_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="frequ_ncia_card_aca">Frequência Cardíaca</string>
+    <string name="exames_feitos">Exames Feitos</string>
+    <string name="gr_fico_fict_cio">Gráfico Fictício</string>
+    <string name="desenvolvido_por_eduardo_pazini">Desenvolvido por: Eduardo Pazini</string>
+</resources>
