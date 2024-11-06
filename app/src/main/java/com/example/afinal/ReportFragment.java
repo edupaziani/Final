@@ -41,7 +41,7 @@ public class ReportFragment extends Fragment {
     private DatabaseReference databaseReference;
     private ValueEventListener eventListener;
     private SearchView searchView;
-    //private TextView bpmValueTextView; // TextView para exibir o BPM
+    private TextView bpmValueTextView; // TextView para exibir o BPM
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class ReportFragment extends Fragment {
         fab = view.findViewById(R.id.fab);
         recyclerView = view.findViewById(R.id.recyclerView);
         searchView = view.findViewById(R.id.search);
-        //bpmValueTextView = view.findViewById(R.id.myBpm); // Inicializar o TextView para BPM
+        bpmValueTextView = view.findViewById(R.id.myBpm); // Inicializar o TextView para BPM
 
         // Configurar o clique do FAB para abrir o UploadDialogFragment
         fab.setOnClickListener(v -> {
@@ -93,9 +93,44 @@ public class ReportFragment extends Fragment {
             }
         });
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();  // Obtém o ID do usuário autenticado
+
+            // Referência ao caminho do dado de BPM no Firebase
+            DatabaseReference bpmRef = FirebaseDatabase.getInstance()
+                    .getReference("SharedData/" + userId + "/sensor_data/bpm_data");
+
+            bpmRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        int bpm = snapshot.getValue(Integer.class); // Obtém o valor de BPM
+                        bpmValueTextView.setText(String.valueOf(bpm) + " bpm"); // Define o texto no TextView
+                    } else {
+                        bpmValueTextView.setText("-- bpm Sensor(-1)");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getContext(), "Erro ao ler BPM: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(getContext(), "Usuário não autenticado", Toast.LENGTH_SHORT).show();
+        }
+
+
         return view;
     }
     private void loadData(AlertDialog dialog) {
+
+        // Obter o UID do usuário autenticado
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Referência para o nó específico do usuário
+        databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(userId);
 
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -119,40 +154,6 @@ public class ReportFragment extends Fragment {
             }
         });
     }
-
-//    private void loadBPMData() {
-//        // Obter o usuário atual autenticado
-//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if (currentUser != null) {
-//            String userId = currentUser.getUid();  // Obtém o ID do usuário autenticado
-//
-//            // Referência para o caminho de BPM no Firebase
-//            DatabaseReference bpmRef = FirebaseDatabase.getInstance()
-//                    .getReference("SharedData/" + userId + "/sensor_data/bpm_data");
-//
-//            bpmRef.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    // Verifica se o valor existe
-//                    if (snapshot.exists()) {
-//                        // Obtém o valor de BPM e exibe no TextView
-//                        int bpm = snapshot.getValue(Integer.class);
-//                        bpmValueTextView.setText(bpm + " bpm");
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                    if (getContext() != null) {
-//                        Toast.makeText(getContext(), "Erro ao ler BPM: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
-//        } else {
-//            Toast.makeText(getContext(), "Usuário não autenticado", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
     public void searchList(String text) {
         ArrayList<DataClass> searchList = new ArrayList<>();

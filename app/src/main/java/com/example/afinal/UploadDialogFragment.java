@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -84,7 +85,11 @@ public class UploadDialogFragment extends DialogFragment {
             return;
         }
 
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
+        // Obter o UID do usuário autenticado
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Definir o caminho no Storage usando o UID do usuário
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images").child(userId)
                 .child(Objects.requireNonNull(uri.getLastPathSegment()));
 
         storageReference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
@@ -101,7 +106,10 @@ public class UploadDialogFragment extends DialogFragment {
     private void uploadDataToDatabase(String title, String desc) {
         DataClass dataClass = new DataClass(title, desc, imageUrl);
 
-        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(title)
+        // Obter o UID do usuário autenticado
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(userId).child(title)
                 .setValue(dataClass).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(), "Data Saved", Toast.LENGTH_SHORT).show();
