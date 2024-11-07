@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,7 +47,6 @@ public class DetailActivity extends AppCompatActivity {
         if (bundle != null){
             detailDesc.setText(bundle.getString("Description"));
             detailTitle.setText(bundle.getString("Title"));
-            //detailLang.setText(bundle.getString("Language"));
 
             key = bundle.getString("Key");
             imageUrl = bundle.getString("Image");
@@ -55,7 +55,11 @@ public class DetailActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
+
+                // Obter o UID do usuário autenticado
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(userId);
                 FirebaseStorage storage = FirebaseStorage.getInstance();
 
                 StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);

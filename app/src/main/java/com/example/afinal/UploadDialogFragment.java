@@ -109,7 +109,7 @@ public class UploadDialogFragment extends DialogFragment {
         // Obter o UID do usuário autenticado
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(userId).child(title)
+        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(userId   ).child(title)
                 .setValue(dataClass).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(), "Data Saved", Toast.LENGTH_SHORT).show();

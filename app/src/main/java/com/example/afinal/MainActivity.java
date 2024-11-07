@@ -2,6 +2,7 @@ package com.example.afinal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,25 @@ public class MainActivity extends AppCompatActivity {
         // Configura a navegação entre os fragments
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
+//                switch (item.getItemId()) {
+//                    case R.id.home:
+//                        replaceFragment(new HomeFragment());
+//                        break;
+//
+//                    case R.id.settings:
+//                        replaceFragment(new SettingsFragment());
+//                        break;
+//
+//                    case R.id.report:
+//                        replaceFragment(new ReportFragment());
+//                        break;
+//
+//                    default:
+//                        return false;
+//                }
+//                return true;
+//            });
+
             if (item.getItemId() == R.id.home) {
                 replaceFragment(new HomeFragment());
             } else if (item.getItemId() == R.id.settings) {
@@ -60,4 +80,11 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.options_menu, menu);
+//        return true;
+//    }
+//
 }

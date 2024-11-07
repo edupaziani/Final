@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,6 @@ public class ReportFragment extends Fragment {
         dialog.show();
 
         loadData(dialog);
-        //loadBPMData(); // Carrega o BPM do Firebase
 
         // Configura o listener de busca
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -114,7 +114,20 @@ public class ReportFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Erro ao ler BPM: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    if (getActivity() != null && isAdded()) {
+//                        Toast.makeText(getActivity(), "Erro ao ler BPM: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }else{
+//                        Log.e("ReportFragment", "Contexto nulo ao tentar exibir Toast: " + error.getMessage());
+//                    }
+                    try {
+                        if (getActivity() != null && isAdded()) {
+                            Toast.makeText(getActivity(), "Erro ao ler BPM: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e("ReportFragment", "Contexto nulo ao tentar exibir Toast: " + error.getMessage());
+                        }
+                    } catch (Exception e) {
+                        Log.e("ReportFragment", "Erro ao tentar exibir Toast: ", e);
+                    }
                 }
             });
         } else {

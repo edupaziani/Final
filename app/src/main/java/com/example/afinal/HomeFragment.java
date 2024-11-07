@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
         ImageView suplementosImage = view.findViewById(R.id.suplementosImage);
         ImageView mentalImage = view.findViewById(R.id.mentalImage);
         ImageView exercicioImage = view.findViewById(R.id.exercicioImage);
+        ImageView remedio = view.findViewById(R.id.remedImage);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -88,6 +89,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.nike.com.br/sc/treino-app-nike-training-club?srsltid=AfmBOoqZx7UnhocQIrynBzh4RX8zVtJMQiyjMZLaTXeobhNrdF_V0K8v"));
+                startActivity(Intent.createChooser(intent, "Abrir com"));
+            }
+        });
+
+        remedio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.drogaraia.com.br/?gad_source=1&gclid=CjwKCAiAxKy5BhBbEiwAYiW--8bo7XI4W-01dJISwzUWvsEFIIwBmBPLIVCT7tZe7tLdzQFrGDPzOxoCRAgQAvD_BwE"));
                 startActivity(Intent.createChooser(intent, "Abrir com"));
             }
         });

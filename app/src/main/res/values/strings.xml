@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Beat2</string>
+    <string name="app_name">Beat</string>
     <string name="logout">Logout</string>
     <string name="hello">Hello</string>
     <string name="upcoming_appointments">Upcoming Appointments</string>
